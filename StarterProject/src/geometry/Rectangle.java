@@ -7,6 +7,47 @@ public class Rectangle {
     private int height;
     private boolean selected;
 
+    public Rectangle() {
+
+    }
+
+    public Rectangle(Point upperLeftPoint, int width, int height) {
+        this.upperLeftPoint = upperLeftPoint;
+        this.width = width;
+        this.height = height;
+    }
+
+    public Rectangle(Point upperLeftPoint, int width, int height, boolean selected) {
+        this(upperLeftPoint, width, height);
+        this.selected = selected;
+    }
+
+    public String toString() {
+        return "Upper left point: " + upperLeftPoint + ", width: " + width + ", height: " + height + ", selected: "
+                + selected;
+    }
+
+    public boolean equals(Object obj) {
+        if (obj instanceof Rectangle) {
+            Rectangle temp = (Rectangle) obj;
+
+            if (this.upperLeftPoint.equals(temp.upperLeftPoint) && this.width == temp.width
+                    && this.height == temp.height) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+    }
+
+    public boolean contains(int x, int y) {
+        return (x >= upperLeftPoint.getX() && x <= upperLeftPoint.getX() + width
+                && y >= upperLeftPoint.getY() && y <= upperLeftPoint.getY() + height);
+    }
+
     // Metode za racunanje povrsine
     public int area() {
         return width * height;

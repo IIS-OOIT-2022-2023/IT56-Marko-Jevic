@@ -1,9 +1,49 @@
 package geometry;
 
+import java.net.PortUnreachableException;
+
+import javax.sound.sampled.ReverbType;
+
 public class Point {
     private int x;
     private int y;
     private boolean selected;
+
+    public Point() {
+
+    }
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public Point(int x, int y, boolean selected) {
+        this(x, y);
+        this.selected = selected;
+    }
+
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
+
+    public boolean equals(Object obj) {
+        if (obj instanceof Point) {
+            Point temp = (Point) obj;
+
+            if (this.x == temp.x && this.y == temp.y) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public boolean contains(int x, int y) {
+        return this.distance(x, y) <= 2;
+    }
 
     public int getX() {
         return x;
@@ -34,7 +74,7 @@ public class Point {
         selected = newSelected;
     }
 
-    public double getDistanceP2P(int x, int y) {
+    public double distance(int x, int y) {
         int x2 = x;
         int y2 = y;
 

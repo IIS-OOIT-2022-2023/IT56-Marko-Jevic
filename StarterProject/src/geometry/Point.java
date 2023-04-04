@@ -1,13 +1,10 @@
 package geometry;
 
-import java.net.PortUnreachableException;
+import java.awt.Graphics;
 
-import javax.sound.sampled.ReverbType;
-
-public class Point {
+public class Point extends Shape {
     private int x;
     private int y;
-    private boolean selected;
 
     public Point() {
 
@@ -53,11 +50,6 @@ public class Point {
         return y;
     }
 
-    public boolean isSelected() {
-        return selected;
-    }
-
-    /* get all values of Point */
     public String getPoint() {
         return x + ", " + y + ", " + selected;
     }
@@ -70,10 +62,6 @@ public class Point {
         y = newY;
     }
 
-    public void setSelected(boolean newSelected) {
-        selected = newSelected;
-    }
-
     public double distance(int x, int y) {
         int x2 = x;
         int y2 = y;
@@ -81,5 +69,11 @@ public class Point {
         double distance = Math.sqrt(Math.pow(x2 - getX(), 2) + Math.pow(y2 - getY(), 2));
 
         return distance;
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        g.drawLine(x - 2, y, x + 2, y);
+        g.drawLine(x, y - 2, x, y + 2);
     }
 }

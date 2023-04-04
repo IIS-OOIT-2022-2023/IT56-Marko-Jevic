@@ -1,10 +1,11 @@
 package geometry;
 
+import java.awt.Graphics;
+
 public class Line {
 
     private Point startPoint;
     private Point endPoint;
-    private boolean selected;
 
     public Line() {
 
@@ -24,23 +25,22 @@ public class Line {
         return startPoint + " --> " + endPoint;
     }
 
-    public boolean equals(Object obj){
-        if(obj instanceof Line){
+    public boolean equals(Object obj) {
+        if (obj instanceof Line) {
             Line temp = (Line) obj;
-            if(this.startPoint.equals(temp.startPoint) && this.endPoint.equals(temp.endPoint)){
+            if (this.startPoint.equals(temp.startPoint) && this.endPoint.equals(temp.endPoint)) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
     }
 
     public boolean contains(int x, int y) {
-        return this.startPoint.distance(x, y) + this.endPoint.distance(x,y) - lenght() <= 2;
+        return this.startPoint.distance(x, y) + this.endPoint.distance(x, y) - lenght() <= 2;
     }
-
 
     public double lenght() {
         return startPoint.getDistanceP2P(endPoint.getX(), endPoint.getY());
@@ -62,11 +62,9 @@ public class Line {
         this.endPoint = endPoint;
     }
 
-    public boolean isSelected() {
-        return selected;
+    @Override
+    public void draw(Graphics g) {
+        g.drawLine(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
     }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
 }

@@ -1,5 +1,7 @@
 package geometry;
 
+import java.awt.Graphics;
+
 public class Rectangle {
 
     private Point upperLeftPoint;
@@ -83,11 +85,10 @@ public class Rectangle {
         this.height = height;
     }
 
-    public boolean isSelected() {
-        return selected;
+    @Override
+    public void draw(Graphics g) {
+        g.drawRect(upperLeftPoint.getX(), upperLeftPoint.getY(), width, height);
+
     }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
 }

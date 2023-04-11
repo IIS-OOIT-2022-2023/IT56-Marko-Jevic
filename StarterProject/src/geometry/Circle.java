@@ -2,11 +2,10 @@ package geometry;
 
 import java.awt.Graphics;
 
-public class Circle {
+public class Circle extends Shape {
 
     private Point center;
     private int radius;
-    private boolean selected;
 
     public Circle() {
 
@@ -23,21 +22,18 @@ public class Circle {
     }
 
     public String toString() {
-        return "Center: " + center + ", radius: " + radius + ", selected: " + selected;
+        return " Center: " + center + ", radius = " + radius;
     }
 
     public boolean equals(Object obj) {
         if (obj instanceof Circle) {
-            Circle temp = (Circle) obj;
-
-            if (this.center.equals(temp.center) && this.radius == temp.radius) {
+            Circle pomocna = (Circle) obj;
+            if (this.center.equals(pomocna.center) && this.radius == pomocna.radius)
                 return true;
-            } else {
+            else
                 return false;
-            }
-        } else {
+        } else
             return false;
-        }
     }
 
     public boolean contains(int x, int y) {
@@ -45,16 +41,22 @@ public class Circle {
     }
 
     public boolean contains(Point p) {
-        return center.distance(p.getX(), p.getY()) <= radius;
+        return center.distance(p.getX(), p.getX()) <= radius;
     }
+
+    // Povrsina kruga P=r*r*PI
+    // Math.PI
 
     public double area() {
         return radius * radius * Math.PI;
     }
 
+    // Obim kruga O=2*r*PI
     public double circumference() {
         return 2 * radius * Math.PI;
     }
+
+    // Metode pristupa
 
     public Point getCenter() {
         return center;
@@ -68,14 +70,35 @@ public class Circle {
         return radius;
     }
 
-    public void setRadius(int center) {
-        this.radius = center;
+    public void setRadius(int radius) {
+        this.radius = radius;
     }
 
     @Override
     public void draw(Graphics g) {
         g.drawOval(center.getX() - radius, center.getY() - radius, 2 * radius, 2 * radius);
 
+    }
+
+    @Override
+    public void moveTo(int x, int y) {
+        center.moveTo(x, y);
+
+    }
+
+    @Override
+    public void moveBy(int byX, int byY) {
+        center.moveBy(byX, byY);
+
+    }
+
+    @Override
+    public int compareTo(Object obj) {
+        if (obj instanceof Circle) {
+            Circle shapeToCompare = (Circle) obj;
+            return (int) (this.area() - shapeToCompare.area());
+        }
+        return 0;
     }
 
 }

@@ -2,11 +2,11 @@ package geometry;
 
 import java.awt.Graphics;
 
-public abstract class Shape {
+public abstract class Shape implements Moveable, Comparable {
 
     protected boolean selected;
 
-    // Deklaracija apstraknih metoda
+    // deklaracija apstraktnih metoda
     public abstract boolean contains(int x, int y);
 
     public abstract void draw(Graphics g);

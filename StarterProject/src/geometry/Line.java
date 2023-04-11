@@ -2,7 +2,7 @@ package geometry;
 
 import java.awt.Graphics;
 
-public class Line {
+public class Line extends Shape {
 
     private Point startPoint;
     private Point endPoint;
@@ -22,17 +22,17 @@ public class Line {
     }
 
     public String toString() {
-        return startPoint + " --> " + endPoint;
+        return startPoint + " --> " + endPoint; // (x,y) --> (xE, yE)
     }
 
     public boolean equals(Object obj) {
         if (obj instanceof Line) {
-            Line temp = (Line) obj;
-            if (this.startPoint.equals(temp.startPoint) && this.endPoint.equals(temp.endPoint)) {
+
+            Line pomocna = (Line) obj;
+            if (startPoint.equals(pomocna.startPoint) && this.endPoint.equals(pomocna.endPoint))
                 return true;
-            } else {
+            else
                 return false;
-            }
         } else {
             return false;
         }
@@ -42,12 +42,14 @@ public class Line {
         return this.startPoint.distance(x, y) + this.endPoint.distance(x, y) - lenght() <= 2;
     }
 
+    // Duzina linije
     public double lenght() {
-        return startPoint.getDistanceP2P(endPoint.getX(), endPoint.getY());
+        return startPoint.distance(endPoint.getX(), endPoint.getY());
     }
 
+    // Metode pristupa
     public Point getStartPoint() {
-        return this.startPoint;
+        return startPoint;
     }
 
     public void setStartPoint(Point startPoint) {
@@ -65,6 +67,29 @@ public class Line {
     @Override
     public void draw(Graphics g) {
         g.drawLine(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
+
+    }
+
+    @Override
+    public void moveTo(int x, int y) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void moveBy(int byX, int byY) {
+        this.startPoint.moveBy(byX, byY);
+        this.endPoint.moveBy(byX, byY);
+
+    }
+
+    @Override
+    public int compareTo(Object obj) {
+        if (obj instanceof Line) {
+            Line shapeToCompare = (Line) obj;
+            return (int) (this.lenght() - shapeToCompare.lenght());
+        }
+        return 0;
     }
 
 }

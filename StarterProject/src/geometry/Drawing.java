@@ -76,6 +76,11 @@ public class Drawing extends JPanel {
         while(it.hasNext()) {
             it.next().draw(g);
         }
+
+        HashMap<String, Shape> map = new HashMap<String, Shape>();
+        map.put("point", p1);
+        map.put("line", l1);
+        System.out.println(map.get("line"));
     }
 
 }

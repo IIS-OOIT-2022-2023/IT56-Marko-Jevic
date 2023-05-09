@@ -96,7 +96,11 @@ public class Rectangle extends Shape {
         g.setColor(Color.black);
         g.drawRect(upperLeftPoint.getX(), upperLeftPoint.getY(), width, height);
         if(selected){
-            
+            g.setColor(Color.BLUE);
+            g.drawRect(upperLeftPoint.getX() - 3, upperLeftPoint.getY() - 3, 6, 6);
+            g.drawRect(upperLeftPoint.getX() + width - 3, upperLeftPoint.getY() - 3, 6, 6);
+            g.drawRect(upperLeftPoint.getX() - 3, upperLeftPoint.getY() + height - 3, 6, 6);
+            g.drawRect(upperLeftPoint.getX() + width - 3, upperLeftPoint.getY() + height - 3, 6, 6);
         }
 
     }

@@ -6,7 +6,9 @@ import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+
 
 public class Drawing extends JPanel {
 

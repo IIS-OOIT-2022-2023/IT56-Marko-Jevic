@@ -20,8 +20,8 @@ import java.awt.event.ActionEvent;
 public class DlgStack extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtXCordinate;
-	private JTextField txtYCordinate;
+	private JTextField txtXCoordinate;
+	private JTextField txtYCoordinate;
 	private JTextField txtCircleRadius;
 	private boolean isOk;
 
@@ -55,42 +55,42 @@ public class DlgStack extends JDialog {
 		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblYCordinate = new JLabel("x:");
-			GridBagConstraints gbc_lblYCordinate = new GridBagConstraints();
-			gbc_lblYCordinate.insets = new Insets(0, 0, 5, 5);
-			gbc_lblYCordinate.anchor = GridBagConstraints.EAST;
-			gbc_lblYCordinate.gridx = 1;
-			gbc_lblYCordinate.gridy = 1;
-			contentPanel.add(lblYCordinate, gbc_lblYCordinate);
+			JLabel lblYCoordinate = new JLabel("x:");
+			GridBagConstraints gbc_lblYCoordinate = new GridBagConstraints();
+			gbc_lblYCoordinate.insets = new Insets(0, 0, 5, 5);
+			gbc_lblYCoordinate.anchor = GridBagConstraints.EAST;
+			gbc_lblYCoordinate.gridx = 1;
+			gbc_lblYCoordinate.gridy = 1;
+			contentPanel.add(lblYCoordinate, gbc_lblYCoordinate);
 		}
 		{
-			txtXCordinate = new JTextField();
-			GridBagConstraints gbc_txtXCordinate = new GridBagConstraints();
-			gbc_txtXCordinate.insets = new Insets(0, 0, 5, 0);
-			gbc_txtXCordinate.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtXCordinate.gridx = 2;
-			gbc_txtXCordinate.gridy = 1;
-			contentPanel.add(txtXCordinate, gbc_txtXCordinate);
-			txtXCordinate.setColumns(10);
+			txtXCoordinate = new JTextField();
+			GridBagConstraints gbc_txtXCoordinate = new GridBagConstraints();
+			gbc_txtXCoordinate.insets = new Insets(0, 0, 5, 0);
+			gbc_txtXCoordinate.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtXCoordinate.gridx = 2;
+			gbc_txtXCoordinate.gridy = 1;
+			contentPanel.add(txtXCoordinate, gbc_txtXCoordinate);
+			txtXCoordinate.setColumns(10);
 		}
 		{
-			JLabel lblYCordinate = new JLabel("y:");
-			GridBagConstraints gbc_lblYCordinate = new GridBagConstraints();
-			gbc_lblYCordinate.anchor = GridBagConstraints.EAST;
-			gbc_lblYCordinate.insets = new Insets(0, 0, 5, 5);
-			gbc_lblYCordinate.gridx = 1;
-			gbc_lblYCordinate.gridy = 2;
-			contentPanel.add(lblYCordinate, gbc_lblYCordinate);
+			JLabel lblYCoordinate = new JLabel("y:");
+			GridBagConstraints gbc_lblYCoordinate = new GridBagConstraints();
+			gbc_lblYCoordinate.anchor = GridBagConstraints.EAST;
+			gbc_lblYCoordinate.insets = new Insets(0, 0, 5, 5);
+			gbc_lblYCoordinate.gridx = 1;
+			gbc_lblYCoordinate.gridy = 2;
+			contentPanel.add(lblYCoordinate, gbc_lblYCoordinate);
 		}
 		{
-			txtYCordinate = new JTextField();
-			txtYCordinate.setColumns(10);
-			GridBagConstraints gbc_txtYCordinate = new GridBagConstraints();
-			gbc_txtYCordinate.insets = new Insets(0, 0, 5, 0);
-			gbc_txtYCordinate.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtYCordinate.gridx = 2;
-			gbc_txtYCordinate.gridy = 2;
-			contentPanel.add(txtYCordinate, gbc_txtYCordinate);
+			txtYCoordinate = new JTextField();
+			txtYCoordinate.setColumns(10);
+			GridBagConstraints gbc_txtYCoordinate = new GridBagConstraints();
+			gbc_txtYCoordinate.insets = new Insets(0, 0, 5, 0);
+			gbc_txtYCoordinate.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtYCoordinate.gridx = 2;
+			gbc_txtYCoordinate.gridy = 2;
+			contentPanel.add(txtYCoordinate, gbc_txtYCoordinate);
 		}
 		{
 			JLabel lblCircleRadius = new JLabel("r:");
@@ -122,8 +122,8 @@ public class DlgStack extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						isOk = true;
 						try {
-							validateIntegerInput(getXCordinate(), "X Coordinate");
-							validateIntegerInput(getYCordinate(), "Y Coordinate");
+							validateIntegerInput(getXCoordinate(), "X Coordinate");
+							validateIntegerInput(getYCoordinate(), "Y Coordinate");
 							validatePositiveIntegerInput(getCircleRadius(), "Circle Radius");
 
 							setVisible(false);
@@ -156,12 +156,12 @@ public class DlgStack extends JDialog {
 		}
 	}
 
-	public JTextField getXCordinate() {
-		return txtXCordinate;
+	public JTextField getXCoordinate() {
+		return txtXCoordinate;
 	}
 
-	public JTextField getYCordinate() {
-		return txtYCordinate;
+	public JTextField getYCoordinate() {
+		return txtYCoordinate;
 	}
 
 	public JTextField getCircleRadius() {

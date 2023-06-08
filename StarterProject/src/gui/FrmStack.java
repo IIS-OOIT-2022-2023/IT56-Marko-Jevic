@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import java.util.Stack;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
@@ -27,6 +28,7 @@ public class FrmStack extends JFrame {
 
 	private JPanel contentPane;
 	private DefaultListModel<Circle> model = new DefaultListModel<Circle>();
+	private Stack<Circle> circleStack = new Stack<Circle>();
 
 	/**
 	 * Launch the application.
@@ -98,12 +100,13 @@ public class FrmStack extends JFrame {
 
 				if (dlg.isOk() == true) {
 					try {
-						int x = Integer.parseInt(dlg.getXCordinate().getText());
-						int y = Integer.parseInt(dlg.getYCordinate().getText());
+						int x = Integer.parseInt(dlg.getXCoordinate().getText());
+						int y = Integer.parseInt(dlg.getYCoordinate().getText());
 						int radius = Integer.parseInt(dlg.getCircleRadius().getText());
 
 						Circle circle = new Circle(new Point(x, y), radius);
-						model.addElement(circle);
+						model.add(0, circle);
+						circleStack.push(circle);
 					} catch (NumberFormatException ex) {
 						//Reason to be explained, WARNING_MESSAGE not needed
 						/*
@@ -124,18 +127,19 @@ public class FrmStack extends JFrame {
 				DlgStack dlg = new DlgStack();
 
 				try {
-					String[] splits = model.getElementAt(lstCircles.getSelectedIndex()).toString().split(" ");
-					dlg.getXCordinate().setText(splits[2].replace("(", "").replace(",", ""));
-					dlg.getYCordinate().setText(splits[3].replace(")", "").replace(",", ""));
+					String[] splits = model.getElementAt(lstCircles.getFirstVisibleIndex()).toString().split(" ");
+					dlg.getXCoordinate().setText(splits[2].replace("(", "").replace(",", ""));
+					dlg.getYCoordinate().setText(splits[3].replace(")", "").replace(",", ""));
 					dlg.getCircleRadius().setText(splits[6]);
 
 					dlg.setVisible(true);
 					if (dlg.isOk() == true) {
-						model.removeElementAt(lstCircles.getSelectedIndex());
+						model.removeElementAt(lstCircles.getFirstVisibleIndex());
+						circleStack.pop();
 					}
 				} catch (Exception exc) {
 					if (lstCircles.isSelectionEmpty()) {
-						JOptionPane.showMessageDialog(null, "Select item for removal", "Error",
+						JOptionPane.showMessageDialog(null, "No circles in the list", "Error",
 								JOptionPane.WARNING_MESSAGE);
 					}
 				}

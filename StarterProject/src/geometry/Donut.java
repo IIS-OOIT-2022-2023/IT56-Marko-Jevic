@@ -70,7 +70,6 @@ public class Donut extends Circle {
 
     @Override
     public boolean contains(Point p) {
-        // TODO Auto-generated method stub
         return super.contains(p) && getCenter().distance(p.getX(), p.getY()) >= innerRadius;
     }
 
@@ -80,14 +79,13 @@ public class Donut extends Circle {
         g.setColor(Color.black);
         g.drawOval(getCenter().getX() - innerRadius, getCenter().getY() - innerRadius, 2 * innerRadius,
                 2 * innerRadius);
-        if(selected){
+        if (selected) {
             g.setColor(Color.blue);
             g.drawRect(getCenter().getX() - innerRadius - 2, getCenter().getY() - 2, 4, 4);
             g.drawRect(getCenter().getX() + innerRadius - 2, getCenter().getY() - 2, 4, 4);
             g.drawRect(getCenter().getX() - 2, getCenter().getY() - innerRadius - 2, 4, 4);
-            g.drawRect(getCenter().getX() - 2, getCenter().getY() + innerRadius - 2, 4, 4);    
+            g.drawRect(getCenter().getX() - 2, getCenter().getY() + innerRadius - 2, 4, 4);
         }
-        
 
     }
 

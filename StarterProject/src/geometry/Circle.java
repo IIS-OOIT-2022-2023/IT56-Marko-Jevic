@@ -45,8 +45,7 @@ public class Circle extends Shape {
         return center.distance(p.getX(), p.getX()) <= radius;
     }
 
-    // Povrsina kruga P=r*r*PI
-    // Math.PI
+
 
     public double area() {
         return radius * radius * Math.PI;
@@ -58,7 +57,6 @@ public class Circle extends Shape {
     }
 
     // Metode pristupa
-
     public Point getCenter() {
         return center;
     }

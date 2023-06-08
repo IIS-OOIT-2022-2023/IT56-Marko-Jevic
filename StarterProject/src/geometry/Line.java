@@ -67,19 +67,18 @@ public class Line extends Shape {
 
     @Override
     public void draw(Graphics g) {
-    	g.setColor(Color.black);
+        g.setColor(Color.black);
         g.drawLine(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
-        if(selected) {
-        	g.setColor(Color.blue);
-        	g.drawRect(startPoint.getX()-2, startPoint.getY()-2, 4, 4);
-        	g.drawRect(endPoint.getX()-2, endPoint.getY()-2, 4, 4);        	
+        if (selected) {
+            g.setColor(Color.blue);
+            g.drawRect(startPoint.getX() - 2, startPoint.getY() - 2, 4, 4);
+            g.drawRect(endPoint.getX() - 2, endPoint.getY() - 2, 4, 4);
         }
 
     }
 
     @Override
     public void moveTo(int x, int y) {
-        // TODO Auto-generated method stub
 
     }
 

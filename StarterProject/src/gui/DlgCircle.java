@@ -17,7 +17,7 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class DlgStack extends JDialog {
+public class DlgCircle extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtXCoordinate;
@@ -30,7 +30,7 @@ public class DlgStack extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			DlgStack dialog = new DlgStack();
+			DlgCircle dialog = new DlgCircle();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -41,7 +41,7 @@ public class DlgStack extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public DlgStack() {
+	public DlgCircle() {
 		setModal(true);
 		setTitle("Add circle");
 		setBounds(500, 400, 450, 300);

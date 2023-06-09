@@ -14,21 +14,23 @@ import javax.swing.JButton;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
-import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
-import java.util.Stack;
 import javax.swing.JOptionPane;
+
+import javax.swing.DefaultListModel;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
-public class FrmStack extends JFrame {
+public class FrmSort extends JFrame {
 
 	private JPanel contentPane;
 	private DefaultListModel<Circle> model = new DefaultListModel<Circle>();
-	private Stack<Circle> circleStack = new Stack<Circle>();
 
 	/**
 	 * Launch the application.
@@ -37,7 +39,7 @@ public class FrmStack extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmStack frame = new FrmStack();
+					FrmSort frame = new FrmSort();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +51,7 @@ public class FrmStack extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrmStack() {
+	public FrmSort() {
 		setTitle("Stack");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -85,7 +87,7 @@ public class FrmStack extends JFrame {
 		pnlNorth.setBackground(new Color(0, 255, 0));
 		contentPane.add(pnlNorth, BorderLayout.NORTH);
 
-		JLabel labelTitle = new JLabel("Stack");
+		JLabel labelTitle = new JLabel("Sort Circle Area");
 		labelTitle.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 14));
 		pnlNorth.add(labelTitle);
 
@@ -100,13 +102,12 @@ public class FrmStack extends JFrame {
 
 				if (dlg.isOk() == true) {
 					try {
-						int x = Integer.parseInt(dlg.getXCoordinate().getText());
-						int y = Integer.parseInt(dlg.getYCoordinate().getText());
-						int radius = Integer.parseInt(dlg.getCircleRadius().getText());
+						int x = Integer.parseInt(dlg.getXCoordinate().getText().replace(" ", ""));
+						int y = Integer.parseInt(dlg.getYCoordinate().getText().replace(" ", ""));
+						int radius = Integer.parseInt(dlg.getCircleRadius().getText().replace(" ", ""));
 
 						Circle circle = new Circle(new Point(x, y), radius);
 						model.add(0, circle);
-						circleStack.push(circle);
 					} catch (NumberFormatException ex) {
 						//Reason to be explained, WARNING_MESSAGE not needed for better UX
 						/*
@@ -121,31 +122,29 @@ public class FrmStack extends JFrame {
 		});
 		panel.add(btnAddCircle);
 
-		JButton btnRemoveCircle = new JButton("Remove circle");
-		btnRemoveCircle.addActionListener(new ActionListener() {
+		JButton btnSortCircles = new JButton("Sort");
+		btnSortCircles.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DlgCircle dlg = new DlgCircle();
+				if (model.getSize() == 0) {
+		            JOptionPane.showMessageDialog(null, "No circles in the list.", "Error",
+		                    JOptionPane.ERROR_MESSAGE);
+		        } else {
+		            List<Circle> circleList = new ArrayList<>();
+		            for (int i = 0; i < model.getSize(); i++) {
+		                circleList.add(model.getElementAt(i));
+		            }
 
-				try {
-					String[] splits = model.getElementAt(lstCircles.getFirstVisibleIndex()).toString().split(" ");
-					dlg.getXCoordinate().setText(splits[2].replace("(", "").replace(",", ""));
-					dlg.getYCoordinate().setText(splits[3].replace(")", "").replace(",", ""));
-					dlg.getCircleRadius().setText(splits[6]);
+		            Collections.sort(circleList);
 
-					dlg.setVisible(true);
-					if (dlg.isOk() == true) {
-						model.removeElementAt(lstCircles.getFirstVisibleIndex());
-						circleStack.pop();
-					}
-				} catch (Exception exc) {
-					if (lstCircles.isSelectionEmpty()) {
-						JOptionPane.showMessageDialog(null, "No circles in the list", "Error",
-								JOptionPane.WARNING_MESSAGE);
-					}
-				}
+		            model.clear();
+		            for (Circle circle : circleList) {
+		                model.addElement(circle);
+		            }
+		        }
 			}
 		});
-		panel.add(btnRemoveCircle);
+		panel.add(btnSortCircles);
 	}
-
 }
+
+

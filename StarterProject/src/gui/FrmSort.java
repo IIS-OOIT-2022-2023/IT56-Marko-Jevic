@@ -52,7 +52,7 @@ public class FrmSort extends JFrame {
 	 * Create the frame.
 	 */
 	public FrmSort() {
-		setTitle("Stack");
+		setTitle("Stack Jevic Marko IT56/2022");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

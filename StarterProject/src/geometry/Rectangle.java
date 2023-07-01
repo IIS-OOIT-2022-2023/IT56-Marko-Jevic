@@ -19,6 +19,14 @@ public class Rectangle extends Shape {
         this.height = height;
         this.selected = selected;
     }
+    
+    public Rectangle(Point upperLeftPoint, int width, int height, Color outlineColor, Color fillColor) {
+        this.upperLeftPoint = upperLeftPoint;
+        this.width = width;
+        this.height = height;
+        setOutlineColor(outlineColor);
+        setFillColor(fillColor);
+    }
 
     public String toString() {
         return "Upper left point: " + upperLeftPoint + ", width = " + width + ", height = " + height;
@@ -93,7 +101,9 @@ public class Rectangle extends Shape {
     }
 
     public void draw(Graphics g) {
-        g.setColor(Color.black);
+        g.setColor(getFillColor());
+        g.fillRect(upperLeftPoint.getX(), upperLeftPoint.getY(), width, height);
+        g.setColor(getOutlineColor());
         g.drawRect(upperLeftPoint.getX(), upperLeftPoint.getY(), width, height);
         if(selected){
             g.setColor(Color.BLUE);
@@ -102,7 +112,6 @@ public class Rectangle extends Shape {
             g.drawRect(upperLeftPoint.getX() - 3, upperLeftPoint.getY() + height - 3, 6, 6);
             g.drawRect(upperLeftPoint.getX() + width - 3, upperLeftPoint.getY() + height - 3, 6, 6);
         }
-
     }
 
     @Override

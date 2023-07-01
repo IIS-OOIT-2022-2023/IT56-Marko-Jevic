@@ -21,6 +21,11 @@ public class Line extends Shape {
         this(startPoint, endPoint);
         this.selected = selected;
     }
+    
+    public Line(Point startPoint, Point endPoint, Color fillColor) {
+        this(startPoint, endPoint);
+        setFillColor(fillColor);
+    }
 
     public String toString() {
         return startPoint + " --> " + endPoint; // (x,y) --> (xE, yE)
@@ -67,7 +72,7 @@ public class Line extends Shape {
 
     @Override
     public void draw(Graphics g) {
-        g.setColor(Color.black);
+        g.setColor(getFillColor());
         g.drawLine(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
         if (selected) {
             g.setColor(Color.blue);

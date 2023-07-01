@@ -16,11 +16,19 @@ public class Circle extends Shape {
         this.center = center;
         this.radius = radius;
     }
+    
+    public Circle(Point center, int radius, Color outlineColor, Color fillColor) {
+        this.center = center;
+        this.radius = radius;
+        setOutlineColor(outlineColor);
+        setFillColor(fillColor);
+    }
 
     public Circle(Point center, int radius, boolean selected) {
         this(center, radius);
         this.selected = selected;
     }
+    
 
     public String toString() {
         return " Center: " + center + ", radius = " + radius;
@@ -78,9 +86,11 @@ public class Circle extends Shape {
 
     }
 
-    @Override
+
     public void draw(Graphics g) {
-    	g.setColor(Color.black);
+    	g.setColor(getFillColor());
+        g.fillOval(center.getX() - radius, center.getY() - radius, 2 * radius, 2 * radius);
+    	g.setColor(getOutlineColor());
         g.drawOval(center.getX() - radius, center.getY() - radius, 2 * radius, 2 * radius);
         if(selected){
             g.setColor(Color.blue);

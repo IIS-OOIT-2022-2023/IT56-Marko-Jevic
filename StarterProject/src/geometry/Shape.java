@@ -1,9 +1,13 @@
 package geometry;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public abstract class Shape implements Moveable, Comparable {
 
+	protected Color outlineColor;
+    protected Color fillColor;
+	
     protected boolean selected;
 
     // deklaracija apstraktnih metoda
@@ -14,8 +18,24 @@ public abstract class Shape implements Moveable, Comparable {
     public Shape() {
 
     }
+    
+    public Color getOutlineColor() {
+		return outlineColor;
+	}
 
-    public Shape(boolean selected) {
+	public void setOutlineColor(Color outlineColor) {
+		this.outlineColor = outlineColor;
+	}
+
+	public Color getFillColor() {
+		return fillColor;
+	}
+
+	public void setFillColor(Color fillColor) {
+		this.fillColor = fillColor;
+	}
+
+	public Shape(boolean selected) {
         this.selected = selected;
     }
 

@@ -21,6 +21,12 @@ public class Point extends Shape {
         this(x, y);
         this.selected = selected;
     }
+    
+    public Point(int x, int y, Color fillColor) {
+        this(x, y);
+        setFillColor(fillColor);
+    }
+
 
     public String toString() {
         return "(" + x + ", " + y + ")"; // (x, y)
@@ -69,7 +75,7 @@ public class Point extends Shape {
 
     @Override
     public void draw(Graphics g) {
-    	g.setColor(Color.black);
+    	g.setColor(getFillColor());
         // tacku predstavljamo kao +
         g.drawLine(x - 2, y, x + 2, y); // horizontalna linija
         g.drawLine(x, y - 2, x, y + 2); // vertikalna linija

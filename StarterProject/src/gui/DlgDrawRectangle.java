@@ -149,7 +149,7 @@ public class DlgDrawRectangle extends JDialog {
 			contentPanel.add(lblOutlineColor, gbc_lblOutlineColor);
 		}
 		{
-
+			btnOutlineColor.setBackground(Color.BLACK);
 			btnOutlineColor.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 			        JColorChooser outlineColorChooser = new JColorChooser();
@@ -194,6 +194,7 @@ public class DlgDrawRectangle extends JDialog {
 			contentPanel.add(lblFillColor, gbc_lblFillColor);
 		}
 		{
+			btnFillColor.setBackground(Color.BLACK);
 			btnFillColor.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent e) {
 			        JColorChooser fillColorChooser = new JColorChooser();
@@ -237,16 +238,24 @@ public class DlgDrawRectangle extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						isOk = true;
-						try {
-							int x = Integer.parseInt(textXCoordinate.getText());
-							int y = Integer.parseInt(textYCoordinate.getText());
-							outlineColor = btnOutlineColor.getBackground();
-							fillColor = btnFillColor.getBackground();
+				        try {
+				            int x = Integer.parseInt(textXCoordinate.getText());
+				            int y = Integer.parseInt(textYCoordinate.getText());
+				            int width = Integer.parseInt(textWidth.getText());
+				            int height = Integer.parseInt(textHeight.getText());
 
-							setVisible(false);
-						} catch (Exception e2) {
-							JOptionPane.showMessageDialog(null, "Wrong input!");
-						}
+				            if (x < 0 || y < 0) {
+				                JOptionPane.showMessageDialog(null, "Invalid input! Please ensure that x and y coordinates are not negative.");
+				            } else if( width <= 0 || height <= 0) {
+				            	JOptionPane.showMessageDialog(null, "Invalid input! Width and height must be greater than 0.");
+				        	}else {
+				                outlineColor = btnOutlineColor.getBackground();
+				                fillColor = btnFillColor.getBackground();
+				                setVisible(false);
+				            }
+				        } catch (NumberFormatException ex) {
+			                JOptionPane.showMessageDialog(null, "Values cant be type of string or empty!");
+			            } 
 					}
 				});
 				okButton.setActionCommand("OK");

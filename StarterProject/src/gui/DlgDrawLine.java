@@ -150,7 +150,7 @@ public class DlgDrawLine extends JDialog {
 			contentPanel.add(lblColor, gbc_lblColor);
 		}
 		{
-
+			btnColor.setBackground(Color.BLACK);
 			btnColor.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 			        JColorChooser colorChooser = new JColorChooser();
@@ -194,17 +194,22 @@ public class DlgDrawLine extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						isOk = true;
-						try {
-							Integer.parseInt(textX1Coordinate.getText());
-							Integer.parseInt(textY1Coordinate.getText());
-							Integer.parseInt(textX2Coordinate.getText());
-							Integer.parseInt(textY2Coordinate.getText());
-							color = btnColor.getBackground();
+			            try {
+			                int x1 = Integer.parseInt(textX1Coordinate.getText());
+			                int y1 = Integer.parseInt(textY1Coordinate.getText());
+			                int x2 = Integer.parseInt(textX2Coordinate.getText());
+			                int y2 = Integer.parseInt(textY2Coordinate.getText());
 
-							setVisible(false);
-						} catch (Exception e2) {
-							JOptionPane.showMessageDialog(null, "Wrong input!");
-						}
+			                if (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0) {
+			                    JOptionPane.showMessageDialog(null, "Coordinates cannot be negative!");
+			                } else {
+			                    color = btnColor.getBackground();
+			                    setVisible(false);
+			                }
+			            } catch (NumberFormatException ex) {
+			                JOptionPane.showMessageDialog(null, "Values cant be type of string or empty!");
+			            } 
+			            
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -241,7 +246,7 @@ public class DlgDrawLine extends JDialog {
 	}
 
 	public Color getLineColor() {
-		return color;
+		return btnColor.getBackground();
 	}
 	
 	public void setBtnColorBackground(Color color) {

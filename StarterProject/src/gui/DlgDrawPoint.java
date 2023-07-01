@@ -113,6 +113,7 @@ public class DlgDrawPoint extends JDialog {
 			contentPanel.add(lblColor, gbc_lblColor);
 		}
 		{
+			btnColor.setBackground(Color.BLACK);
 			btnColor.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 			        JColorChooser colorChooser = new JColorChooser();
@@ -156,14 +157,18 @@ public class DlgDrawPoint extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						isOk = true;
 						try {
-					        Integer.parseInt(getXCoordinate().getText());
-					        Integer.parseInt(getYCoordinate().getText());
+					        int x = Integer.parseInt(getXCoordinate().getText());
+					        int y = Integer.parseInt(getYCoordinate().getText());
 
-							setVisible(false);
-						} catch (NumberFormatException e1) {
-							JOptionPane.showMessageDialog(null, "You didn't enter a number!", "Error",
+							if (x >= 0 && y >= 0) {
+								setVisible(false);
+							} else {
+								JOptionPane.showMessageDialog(null, "Coordinates cannot be negative!", "Error",
 									JOptionPane.ERROR_MESSAGE);
-						}
+							}
+						} catch (NumberFormatException ex) {
+			                JOptionPane.showMessageDialog(null, "Values cant be type of string or empty!");
+			            } 
 
 					}
 				});
@@ -193,7 +198,7 @@ public class DlgDrawPoint extends JDialog {
 	}
 	
 	public Color getPointColor() {
-		return color;
+		return btnColor.getBackground();
 	}
 	
 	public void setBtnColorBackground(Color color) {

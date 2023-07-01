@@ -314,7 +314,6 @@ public class Drawing extends JFrame {
 		tglDrawPoint.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnShapeName = "point";
-				System.out.println("point");
 			}
 		});
 		tglDrawPoint.setBackground(new Color(192, 192, 192));
@@ -328,7 +327,6 @@ public class Drawing extends JFrame {
 		tglDrawLine.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnShapeName = "line";
-				System.out.println("line");
 			}
 		});
 		tglDrawLine.setBackground(new Color(192, 192, 192));
@@ -342,7 +340,6 @@ public class Drawing extends JFrame {
 		tglDrawRectangle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnShapeName = "rectangle";
-				System.out.println("rectangle");
 			}
 		});
 		tglDrawRectangle.setBackground(new Color(192, 192, 192));
@@ -356,7 +353,6 @@ public class Drawing extends JFrame {
 		tglDrawCircle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnShapeName = "circle";
-				System.out.println("circle");
 			}
 		});
 		tglDrawCircle.setBackground(new Color(192, 192, 192));
@@ -370,7 +366,6 @@ public class Drawing extends JFrame {
 		tglDrawDonut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnShapeName = "donut";
-				System.out.println("donut");
 			}
 		});
 		tglDrawDonut.setBackground(new Color(192, 192, 192));
@@ -430,10 +425,7 @@ public class Drawing extends JFrame {
 									addShape(obj);
 								}
 
-							} catch (Exception e1) {
-								JOptionPane.showMessageDialog(null, "Error " + e1.getMessage(), "Warning",
-										JOptionPane.WARNING_MESSAGE);
-							}
+							} catch (Exception e1) {}
 						}
 							break;
 						case "line": {
@@ -457,14 +449,13 @@ public class Drawing extends JFrame {
 										
 										obj = new Line(new Point(x1, y1), new Point(x2, y2), color);
 										addShape(obj);
-										linePoints[0] = null;
-										linePoints[1] = null;
+
 									}
-								} catch (Exception e1) {
-									JOptionPane.showMessageDialog(null, "Error " + e1.getMessage(), "Warning",
-											JOptionPane.WARNING_MESSAGE);
-								}
+								} catch (Exception e1) {}		
+								linePoints[0] = null;
+								linePoints[1] = null;
 							}
+
 
 						}
 							break;
@@ -489,10 +480,7 @@ public class Drawing extends JFrame {
 									addShape(obj);
 								}
 
-							} catch (Exception e1) {
-								JOptionPane.showMessageDialog(null, "Error " + e1.getMessage(), "Warning",
-										JOptionPane.WARNING_MESSAGE);
-							}
+							} catch (Exception e1) {}
 
 						}
 							break;
@@ -516,10 +504,7 @@ public class Drawing extends JFrame {
 									addShape(obj);
 								}
 
-							} catch (Exception e1) {
-								JOptionPane.showMessageDialog(null, "Error " + e1.getMessage(), "Warning",
-										JOptionPane.WARNING_MESSAGE);
-							}
+							} catch (Exception e1) {}
 						}
 							break;
 						case "donut": {
@@ -543,10 +528,7 @@ public class Drawing extends JFrame {
 									addShape(obj);
 								}
 
-							} catch (Exception e1) {
-								JOptionPane.showMessageDialog(null, "Error " + e1.getMessage(), "Warning",
-										JOptionPane.WARNING_MESSAGE);
-							}
+							} catch (Exception e1) {}
 
 						}
 							break;

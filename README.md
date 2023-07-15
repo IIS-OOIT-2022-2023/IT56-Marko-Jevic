@@ -29,7 +29,7 @@ Run the application:
 3. To select a shape, first toggle the select button, after that click on shape. The selected shape will be highlighted.
 4. To modify the properties of a selected shape, use the modify tool from tools section to edit cuurent values for selected shape. Click the "OK" button to apply the changes.
 5. To delete a selected shape, click the "Delete" button found in tools section.
-6. To exit the application, click the close button (X) on the window.
+6. To exit the application, click the close button (X) in the top right corner.
 
 ## License
 This project is licensed under the [MIT License](https://www.mit.edu/~amini/LICENSE.md).

@@ -1,4 +1,4 @@
-package gui;
+package drawing;
 
 import java.awt.EventQueue;
 
@@ -33,7 +33,6 @@ import geometry.Rectangle;
 import geometry.Shape;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.lang.reflect.Array;
 
 public class Drawing extends JFrame {
 
@@ -207,7 +206,7 @@ public class Drawing extends JFrame {
 		                Donut donut= (Donut) selectedShape;
 		                dlgDonut.getXCoordinate().setText(Integer.toString(donut.getCenter().getX()));
 		                dlgDonut.getYCoordinate().setText(Integer.toString(donut.getCenter().getY()));
-		                dlgDonut.getOuterRadius().setText(Integer.toString(donut.getRadius()));
+		                dlgDonut.getOuterRadius().setText(Integer.toString(donut.getOuterRadius()));
 		                dlgDonut.getInnerRadius().setText(Integer.toString(donut.getInnerRadius()));
 		                dlgDonut.setBtnOutlineBackground(donut.getOutlineColor());
 		                dlgDonut.setBtnFillBackground(donut.getFillColor());
@@ -217,7 +216,7 @@ public class Drawing extends JFrame {
 		                    try {
 			                    donut.getCenter().setX(Integer.parseInt(dlgDonut.getXCoordinate().getText()));
 			                    donut.getCenter().setY(Integer.parseInt(dlgDonut.getYCoordinate().getText()));
-								donut.setRadius(Integer.parseInt(dlgDonut.getOuterRadius().getText()));
+								donut.setOuterRadius(Integer.parseInt(dlgDonut.getOuterRadius().getText()));
 								donut.setInnerRadius(Integer.parseInt(dlgDonut.getInnerRadius().getText()));
 								donut.setOutlineColor(dlgDonut.getOutlineColor());
 								donut.setFillColor(dlgDonut.getFillColor());
@@ -400,32 +399,18 @@ public class Drawing extends JFrame {
 		canvas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Shape obj = null;
-				e.getX();
-				e.getY();
-
 				if (toolTgl == 0) {
-
 					switch (btnShapeName) {
 						case "point": {
 							DlgDrawPoint dlgPoint = new DlgDrawPoint();
 							dlgPoint.getXCoordinate().setText(Integer.toString(e.getX()));
 							dlgPoint.getYCoordinate().setText(Integer.toString(e.getY()));
+							dlgPoint.setVisible(true);
+							if (dlgPoint.isOk()) {
+								// Add the shape to the shapes list
+								addShape(dlgPoint.getPointObj());
+							}
 
-							try {
-								dlgPoint.setVisible(true);
-
-								if (dlgPoint.isOk()) {
-									int x = Integer.parseInt(dlgPoint.getXCoordinate().getText());
-									int y = Integer.parseInt(dlgPoint.getYCoordinate().getText());
-
-									obj = new Point(x, y, dlgPoint.getPointColor());
-
-									// Add the shape to the shapes list
-									addShape(obj);
-								}
-
-							} catch (Exception e1) {}
 						}
 							break;
 						case "line": {
@@ -434,24 +419,15 @@ public class Drawing extends JFrame {
 								linePoints[0] = new Point(e.getX(), e.getY());
 							} else if (linePoints[1] == null) {
 								linePoints[1] = new Point(e.getX(), e.getY());
-								try {
-									dlgLine.getX1Coordinate().setText(Integer.toString(linePoints[0].getX()));
-									dlgLine.getY1Coordinate().setText(Integer.toString(linePoints[0].getY()));
-									dlgLine.getX2Coordinate().setText(Integer.toString(linePoints[1].getX()));
-									dlgLine.getY2Coordinate().setText(Integer.toString(linePoints[1].getY()));
-									dlgLine.setVisible(true);
-									if (dlgLine.isOk()) {
-										int x1 = Integer.parseInt(dlgLine.getX1Coordinate().getText());
-										int y1 = Integer.parseInt(dlgLine.getY1Coordinate().getText());
-										int x2 = Integer.parseInt(dlgLine.getX2Coordinate().getText());
-										int y2 = Integer.parseInt(dlgLine.getY2Coordinate().getText());
-										Color color = dlgLine.getLineColor();
-										
-										obj = new Line(new Point(x1, y1), new Point(x2, y2), color);
-										addShape(obj);
-
-									}
-								} catch (Exception e1) {}		
+								dlgLine.getX1Coordinate().setText(Integer.toString(linePoints[0].getX()));
+								dlgLine.getY1Coordinate().setText(Integer.toString(linePoints[0].getY()));
+								dlgLine.getX2Coordinate().setText(Integer.toString(linePoints[1].getX()));
+								dlgLine.getY2Coordinate().setText(Integer.toString(linePoints[1].getY()));
+								dlgLine.setVisible(true);
+								if (dlgLine.isOk()) {
+									// Add the shape to the shapes list
+									addShape(dlgLine.getLineObj());
+								}
 								linePoints[0] = null;
 								linePoints[1] = null;
 							}
@@ -463,80 +439,39 @@ public class Drawing extends JFrame {
 							DlgDrawRectangle dlgRectangle = new DlgDrawRectangle();
 							dlgRectangle.getXCoordinate().setText(Integer.toString(e.getX()));
 							dlgRectangle.getYCoordinate().setText(Integer.toString(e.getY()));
-
-							try {
-								dlgRectangle.setVisible(true);
-
-								if (dlgRectangle.isOk()) {
-									int x = Integer.parseInt(dlgRectangle.getXCoordinate().getText());
-									int y = Integer.parseInt(dlgRectangle.getYCoordinate().getText());
-									int width = Integer.parseInt(dlgRectangle.getTextWidth().getText());
-									int height = Integer.parseInt(dlgRectangle.getTextHeight().getText());
-
-									obj = new Rectangle(new Point(x, y), width, height, dlgRectangle.getOutlineColor(),
-											dlgRectangle.getFillColor());
-
-									// Add the shape to the shapes list
-									addShape(obj);
-								}
-
-							} catch (Exception e1) {}
-
+							dlgRectangle.setVisible(true);
+							if (dlgRectangle.isOk()) {
+								// Add the shape to the shapes list
+								addShape(dlgRectangle.getRectangleObj());
+							}
 						}
 							break;
 						case "circle": {
 							DlgDrawCircle dlgCircle = new DlgDrawCircle();
 							dlgCircle.getXCoordinate().setText(Integer.toString(e.getX()));
 							dlgCircle.getYCoordinate().setText(Integer.toString(e.getY()));
-
-							try {
-								dlgCircle.setVisible(true);
-
-								if (dlgCircle.isOk()) {
-									int x = Integer.parseInt(dlgCircle.getXCoordinate().getText());
-									int y = Integer.parseInt(dlgCircle.getYCoordinate().getText());
-									int r = Integer.parseInt(dlgCircle.getTextRadius().getText());
-
-									obj = new Circle(new Point(x, y), r, dlgCircle.getOutlineColor(),
-											dlgCircle.getFillColor());
-
-									// Add the shape to the shapes list
-									addShape(obj);
-								}
-
-							} catch (Exception e1) {}
+							dlgCircle.setVisible(true);
+							if (dlgCircle.isOk()) {
+								// Add the shape to the shapes list
+								addShape(dlgCircle.getCircleObj());
+							}
 						}
 							break;
 						case "donut": {
 							DlgDrawDonut dlgDonut = new DlgDrawDonut();
 							dlgDonut.getXCoordinate().setText(Integer.toString(e.getX()));
 							dlgDonut.getYCoordinate().setText(Integer.toString(e.getY()));
-
-							try {
-								dlgDonut.setVisible(true);
-
-								if (dlgDonut.isOk()) {
-									int x = Integer.parseInt(dlgDonut.getXCoordinate().getText());
-									int y = Integer.parseInt(dlgDonut.getYCoordinate().getText());
-									int outer = Integer.parseInt(dlgDonut.getOuterRadius().getText());
-									int inner = Integer.parseInt(dlgDonut.getInnerRadius().getText());
-
-									obj = new Donut(new Point(x, y), outer, inner, dlgDonut.getFillColor(),
-											dlgDonut.getOutlineColor());
-
-									// Add the shape to the shapes list
-									addShape(obj);
-								}
-
-							} catch (Exception e1) {}
-
+							dlgDonut.setVisible(true);
+							if (dlgDonut.isOk()) {
+								// Add the shape to the shapes list
+								addShape(dlgDonut.getDonutObj());
+							}
 						}
 							break;
 					}
 
 				} else if (toolTgl == 1) {
 					Shape clickedShape = null;
-
 					// Find the last drawn shape that contains the click point
 					for (int i = shapes.size() - 1; i >= 0; i--) {
 						Shape shape = shapes.get(i);
@@ -545,7 +480,6 @@ public class Drawing extends JFrame {
 							break;
 						}
 					}
-
 					if (clickedShape != null) {
 						// Check if the clicked shape is already selected
 						if (selectedShape != clickedShape) {
@@ -570,13 +504,9 @@ public class Drawing extends JFrame {
 						}
 					}
 				}
-
 				canvas.paintComponent(canvas.getGraphics(), shapes);
-
 			}
-
 		});
-
 		canvas.setBackground(Color.WHITE);
 		contentPane.add(canvas, BorderLayout.CENTER);
 	}

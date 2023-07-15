@@ -1,4 +1,4 @@
-package gui;
+package drawing;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -10,6 +10,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
+
+import geometry.Circle;
+import geometry.Point;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -23,19 +26,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
-public class DlgDrawDonut extends JDialog {
+public class DlgDrawCircle extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textYCoordinate;
 	private JTextField textXCoordinate;
-	private JTextField textOuterRadius;
-	private JTextField textInnerRadius;
+	private JTextField textRadius;
 	JButton btnOutlineColor = new JButton("                  ");
 	JButton btnFillColor = new JButton("                  ");
 
 
-
 	private boolean isOk;
+	private Circle obj;
 	private Color outlineColor;
 	private Color fillColor;
 
@@ -45,7 +47,7 @@ public class DlgDrawDonut extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			DlgDrawDonut dialog = new DlgDrawDonut();
+			DlgDrawCircle dialog = new DlgDrawCircle();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -56,7 +58,7 @@ public class DlgDrawDonut extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public DlgDrawDonut() {
+	public DlgDrawCircle() {
 		setModal(true);
 		setBounds(100, 100, 384, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -64,9 +66,9 @@ public class DlgDrawDonut extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[] { 0, 0, 0 };
-		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
 		gbl_contentPanel.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
-		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JLabel lblXCoordinate = new JLabel("X:");
@@ -105,47 +107,29 @@ public class DlgDrawDonut extends JDialog {
 			textYCoordinate.setColumns(10);
 		}
 		{
-			JLabel lblOuterRadius = new JLabel("Outer radius:");
-			GridBagConstraints gbc_lblOuterRadius = new GridBagConstraints();
-			gbc_lblOuterRadius.insets = new Insets(0, 0, 5, 5);
-			gbc_lblOuterRadius.gridx = 0;
-			gbc_lblOuterRadius.gridy = 2;
-			contentPanel.add(lblOuterRadius, gbc_lblOuterRadius);
+			JLabel lblRadius = new JLabel("Radius:");
+			GridBagConstraints gbc_lblRadius = new GridBagConstraints();
+			gbc_lblRadius.insets = new Insets(0, 0, 5, 5);
+			gbc_lblRadius.gridx = 0;
+			gbc_lblRadius.gridy = 2;
+			contentPanel.add(lblRadius, gbc_lblRadius);
 		}
 		{
-			textOuterRadius = new JTextField();
-			textOuterRadius.setColumns(10);
-			GridBagConstraints gbc_textOuterRadius = new GridBagConstraints();
-			gbc_textOuterRadius.anchor = GridBagConstraints.WEST;
-			gbc_textOuterRadius.insets = new Insets(0, 0, 5, 0);
-			gbc_textOuterRadius.gridx = 1;
-			gbc_textOuterRadius.gridy = 2;
-			contentPanel.add(textOuterRadius, gbc_textOuterRadius);
-		}
-		{
-			JLabel lblInnerRadius = new JLabel("Inner radius:");
-			GridBagConstraints gbc_lblInnerRadius = new GridBagConstraints();
-			gbc_lblInnerRadius.insets = new Insets(0, 0, 5, 5);
-			gbc_lblInnerRadius.gridx = 0;
-			gbc_lblInnerRadius.gridy = 3;
-			contentPanel.add(lblInnerRadius, gbc_lblInnerRadius);
-		}
-		{
-			textInnerRadius = new JTextField();
-			textInnerRadius.setColumns(10);
-			GridBagConstraints gbc_textInnerRadius = new GridBagConstraints();
-			gbc_textInnerRadius.anchor = GridBagConstraints.WEST;
-			gbc_textInnerRadius.insets = new Insets(0, 0, 5, 0);
-			gbc_textInnerRadius.gridx = 1;
-			gbc_textInnerRadius.gridy = 3;
-			contentPanel.add(textInnerRadius, gbc_textInnerRadius);
+			textRadius = new JTextField();
+			textRadius.setColumns(10);
+			GridBagConstraints gbc_textRadius = new GridBagConstraints();
+			gbc_textRadius.anchor = GridBagConstraints.WEST;
+			gbc_textRadius.insets = new Insets(0, 0, 5, 0);
+			gbc_textRadius.gridx = 1;
+			gbc_textRadius.gridy = 2;
+			contentPanel.add(textRadius, gbc_textRadius);
 		}
 		{
 			JLabel lblOutlineColor = new JLabel("Outline color");
 			GridBagConstraints gbc_lblOutlineColor = new GridBagConstraints();
 			gbc_lblOutlineColor.insets = new Insets(0, 0, 5, 5);
 			gbc_lblOutlineColor.gridx = 0;
-			gbc_lblOutlineColor.gridy = 4;
+			gbc_lblOutlineColor.gridy = 3;
 			contentPanel.add(lblOutlineColor, gbc_lblOutlineColor);
 		}
 		{
@@ -181,7 +165,7 @@ public class DlgDrawDonut extends JDialog {
 			gbc_btnOutlineColor.anchor = GridBagConstraints.WEST;
 			gbc_btnOutlineColor.insets = new Insets(0, 0, 5, 0);
 			gbc_btnOutlineColor.gridx = 1;
-			gbc_btnOutlineColor.gridy = 4;
+			gbc_btnOutlineColor.gridy = 3;
 			contentPanel.add(btnOutlineColor, gbc_btnOutlineColor);
 		}
 		{
@@ -189,7 +173,7 @@ public class DlgDrawDonut extends JDialog {
 			GridBagConstraints gbc_lblFillColor = new GridBagConstraints();
 			gbc_lblFillColor.insets = new Insets(0, 0, 5, 5);
 			gbc_lblFillColor.gridx = 0;
-			gbc_lblFillColor.gridy = 5;
+			gbc_lblFillColor.gridy = 4;
 			contentPanel.add(lblFillColor, gbc_lblFillColor);
 		}
 		{
@@ -225,7 +209,7 @@ public class DlgDrawDonut extends JDialog {
 			gbc_btnFillColor.insets = new Insets(0, 0, 5, 0);
 			gbc_btnFillColor.anchor = GridBagConstraints.WEST;
 			gbc_btnFillColor.gridx = 1;
-			gbc_btnFillColor.gridy = 5;
+			gbc_btnFillColor.gridy = 4;
 			contentPanel.add(btnFillColor, gbc_btnFillColor);
 		}
 		{
@@ -236,24 +220,22 @@ public class DlgDrawDonut extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						isOk = true;
 						try {
 							int x = Integer.parseInt(textXCoordinate.getText());
 							int y = Integer.parseInt(textYCoordinate.getText());
-							int outerRadius = Integer.parseInt(textOuterRadius.getText());
-							int innerRadius = Integer.parseInt(textInnerRadius.getText());
+							int r = Integer.parseInt(textRadius.getText());
 							outlineColor = btnOutlineColor.getBackground();
 							fillColor = btnFillColor.getBackground();
-
+							
 				            if (x < 0 || y < 0) {
 				                JOptionPane.showMessageDialog(null, "Invalid input! Please ensure that x and y coordinates are not negative.");
-				            } else if ( outerRadius <= 0 || innerRadius <= 0) {
-				            	JOptionPane.showMessageDialog(null, "Invalid input! Outer and inner radius must be greater than 0.");
-				        	} else if (outerRadius < innerRadius) {
-				        		JOptionPane.showMessageDialog(null, "Invalid input! Outer radius must be greater than inner radius.");
-							}else {
+				            } else if( r <= 0) {
+				            	JOptionPane.showMessageDialog(null, "Invalid input! Radius must be greater than 0.");
+				        	}else {
 				                outlineColor = btnOutlineColor.getBackground();
 				                fillColor = btnFillColor.getBackground();
+								isOk = true;
+								obj = new Circle(new Point(x, y), r, getOutlineColor(), getFillColor());
 				                setVisible(false);
 				            }
 						} catch (NumberFormatException ex) {
@@ -286,28 +268,28 @@ public class DlgDrawDonut extends JDialog {
 		return textYCoordinate;
 	}
 	
-	public JTextField getOuterRadius() {
-		return textOuterRadius;
+	public JTextField getTextRadius() {
+		return textRadius;
 	}
 	
-	public JTextField getInnerRadius() {
-		return textInnerRadius;
-	}
-
 	public Color getOutlineColor() {
 		return outlineColor;
 	}
 	
-	public void setBtnOutlineBackground(Color outline) {
-		btnOutlineColor.setBackground(outline);
+	public void setBtnOutlineBackground(Color color) {
+		btnOutlineColor.setBackground(color);
 	}
-	
+		
 	public Color getFillColor() {
 		return fillColor;
 	}
 	
-	public void setBtnFillBackground(Color fill) {
-		btnFillColor.setBackground(fill);
+	public void setBtnFillBackground(Color color) {
+		btnFillColor.setBackground(color);
+	}
+		
+	public Circle getCircleObj() {
+		return obj;
 	}
 	
 	public boolean isOk() {

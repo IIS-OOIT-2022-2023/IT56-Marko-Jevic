@@ -1,4 +1,4 @@
-package gui;
+package drawing;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -27,14 +27,13 @@ import java.awt.event.ActionEvent;
 
 public class DlgDrawPoint extends JDialog {
 
-	private Drawing drawing = new Drawing();
-
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textXCoordinate;
 	private JTextField textYCoordinate;
 	private JButton btnColor = new JButton("                  ");
 
 	private Color color;
+	private Point obj;
 	private boolean isOk;
 
 	/**
@@ -42,7 +41,6 @@ public class DlgDrawPoint extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			Drawing drawing = new Drawing();
 			DlgDrawPoint dialog = new DlgDrawPoint();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
@@ -155,12 +153,13 @@ public class DlgDrawPoint extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						isOk = true;
 						try {
 					        int x = Integer.parseInt(getXCoordinate().getText());
 					        int y = Integer.parseInt(getYCoordinate().getText());
 
 							if (x >= 0 && y >= 0) {
+								isOk = true;
+								obj = new Point(x, y, getPointColor());
 								setVisible(false);
 							} else {
 								JOptionPane.showMessageDialog(null, "Coordinates cannot be negative!", "Error",
@@ -203,6 +202,10 @@ public class DlgDrawPoint extends JDialog {
 	
 	public void setBtnColorBackground(Color color) {
 	    btnColor.setBackground(color);
+	}
+	
+	public Point getPointObj() {
+		return obj;
 	}
 	
 	public boolean isOk() {

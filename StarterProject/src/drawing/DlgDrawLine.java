@@ -1,4 +1,4 @@
-package gui;
+package drawing;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -10,6 +10,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
+
+import geometry.Line;
+import geometry.Point;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -34,6 +37,7 @@ public class DlgDrawLine extends JDialog {
 	private JButton btnColor = new JButton("                  ");
 
 	private Color color;
+	private Line obj;
 	private boolean isOk;
 
 	/**
@@ -41,7 +45,6 @@ public class DlgDrawLine extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			Drawing drawing = new Drawing();
 			DlgDrawLine dialog = new DlgDrawLine();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
@@ -193,7 +196,6 @@ public class DlgDrawLine extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						isOk = true;
 			            try {
 			                int x1 = Integer.parseInt(textX1Coordinate.getText());
 			                int y1 = Integer.parseInt(textY1Coordinate.getText());
@@ -204,6 +206,8 @@ public class DlgDrawLine extends JDialog {
 			                    JOptionPane.showMessageDialog(null, "Coordinates cannot be negative!");
 			                } else {
 			                    color = btnColor.getBackground();
+								isOk = true;
+								obj = new Line(new Point(x1, y1), new Point(x2, y2), color);
 			                    setVisible(false);
 			                }
 			            } catch (NumberFormatException ex) {
@@ -251,6 +255,10 @@ public class DlgDrawLine extends JDialog {
 	
 	public void setBtnColorBackground(Color color) {
 	    btnColor.setBackground(color);
+	}
+	
+	public Line getLineObj() {
+		return obj;
 	}
 
 	public boolean isOk() {

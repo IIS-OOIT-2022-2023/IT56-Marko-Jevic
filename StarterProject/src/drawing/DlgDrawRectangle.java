@@ -1,8 +1,7 @@
-package gui;
+package drawing;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -11,6 +10,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
+
+import geometry.Point;
+import geometry.Rectangle;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -37,6 +39,7 @@ public class DlgDrawRectangle extends JDialog {
 
 
 	private boolean isOk;
+	private Rectangle obj;
 	private Color outlineColor;
 	private Color fillColor;
 
@@ -237,7 +240,7 @@ public class DlgDrawRectangle extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						isOk = true;
+
 				        try {
 				            int x = Integer.parseInt(textXCoordinate.getText());
 				            int y = Integer.parseInt(textYCoordinate.getText());
@@ -251,6 +254,8 @@ public class DlgDrawRectangle extends JDialog {
 				        	}else {
 				                outlineColor = btnOutlineColor.getBackground();
 				                fillColor = btnFillColor.getBackground();
+								isOk = true;
+								obj = new Rectangle(new Point(x, y), width, height, getOutlineColor(), getFillColor());
 				                setVisible(false);
 				            }
 				        } catch (NumberFormatException ex) {
@@ -305,6 +310,10 @@ public class DlgDrawRectangle extends JDialog {
 	
 	public void setBtnFillBackground(Color color) {
 		btnFillColor.setBackground(color);
+	}
+	
+	public Rectangle getRectangleObj() {
+		return obj;
 	}
 	
 	public boolean isOk() {

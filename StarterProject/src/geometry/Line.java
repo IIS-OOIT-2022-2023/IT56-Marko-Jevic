@@ -45,7 +45,7 @@ public class Line extends Shape {
     }
 
     public boolean contains(int x, int y) {
-        return this.startPoint.distance(x, y) + this.endPoint.distance(x, y) - lenght() <= 2;
+        return this.startPoint.distance(x, y) + this.endPoint.distance(x, y) - lenght() <= 0.5;
     }
 
     // Duzina linije

@@ -3,7 +3,7 @@ package geometry;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public abstract class Shape implements Moveable, Comparable {
+public abstract class Shape implements Moveable, Comparable<Object> {
 
 	protected Color outlineColor;
     protected Color fillColor;
@@ -14,7 +14,7 @@ public abstract class Shape implements Moveable, Comparable {
     public abstract boolean contains(int x, int y);
 
     public abstract void draw(Graphics g);
-
+    
     public Shape() {
 
     }

@@ -28,7 +28,6 @@ public class Circle extends Shape {
         this(center, radius);
         this.selected = selected;
     }
-    
 
     public String toString() {
         return " Center: " + center + ", radius = " + radius;
@@ -52,8 +51,6 @@ public class Circle extends Shape {
     public boolean contains(Point p) {
         return center.distance(p.getX(), p.getX()) <= radius;
     }
-
-
 
     public double area() {
         return radius * radius * Math.PI;
@@ -85,7 +82,6 @@ public class Circle extends Shape {
     
 
     }
-
 
     public void draw(Graphics g) {
     	g.setColor(getFillColor());

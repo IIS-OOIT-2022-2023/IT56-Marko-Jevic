@@ -1,4 +1,4 @@
-package gui;
+package stack;
 
 import geometry.Point;
 import geometry.Circle;
@@ -14,20 +14,16 @@ import javax.swing.JButton;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
+import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-
-import javax.swing.DefaultListModel;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
-public class FrmSort extends JFrame {
+public class FrmStack extends JFrame {
 
 	private JPanel contentPane;
 	private DefaultListModel<Circle> model = new DefaultListModel<Circle>();
@@ -39,7 +35,7 @@ public class FrmSort extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmSort frame = new FrmSort();
+					FrmStack frame = new FrmStack();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,8 +47,8 @@ public class FrmSort extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrmSort() {
-		setTitle("Stack Jevic Marko IT56/2022");
+	public FrmStack() {
+		setTitle("Stack");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -87,7 +83,7 @@ public class FrmSort extends JFrame {
 		pnlNorth.setBackground(new Color(0, 255, 0));
 		contentPane.add(pnlNorth, BorderLayout.NORTH);
 
-		JLabel labelTitle = new JLabel("Sort Circle Area");
+		JLabel labelTitle = new JLabel("Stack");
 		labelTitle.setFont(new Font("Monospaced", Font.BOLD | Font.ITALIC, 14));
 		pnlNorth.add(labelTitle);
 
@@ -102,9 +98,9 @@ public class FrmSort extends JFrame {
 
 				if (dlg.isOk() == true) {
 					try {
-						int x = Integer.parseInt(dlg.getXCoordinate().getText().replace(" ", ""));
-						int y = Integer.parseInt(dlg.getYCoordinate().getText().replace(" ", ""));
-						int radius = Integer.parseInt(dlg.getCircleRadius().getText().replace(" ", ""));
+						int x = Integer.parseInt(dlg.getXCoordinate().getText());
+						int y = Integer.parseInt(dlg.getYCoordinate().getText());
+						int radius = Integer.parseInt(dlg.getCircleRadius().getText());
 
 						Circle circle = new Circle(new Point(x, y), radius);
 						model.add(0, circle);
@@ -122,29 +118,30 @@ public class FrmSort extends JFrame {
 		});
 		panel.add(btnAddCircle);
 
-		JButton btnSortCircles = new JButton("Sort");
-		btnSortCircles.addActionListener(new ActionListener() {
+		JButton btnRemoveCircle = new JButton("Remove circle");
+		btnRemoveCircle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (model.getSize() == 0) {
-		            JOptionPane.showMessageDialog(null, "No circles in the list.", "Error",
-		                    JOptionPane.ERROR_MESSAGE);
-		        } else {
-		            List<Circle> circleList = new ArrayList<>();
-		            for (int i = 0; i < model.getSize(); i++) {
-		                circleList.add(model.getElementAt(i));
-		            }
+				DlgCircle dlg = new DlgCircle();
 
-		            Collections.sort(circleList);
+				try {
+					String[] splits = model.getElementAt(lstCircles.getFirstVisibleIndex()).toString().split(" ");
+					dlg.getXCoordinate().setText(splits[2].replace("(", "").replace(",", ""));
+					dlg.getYCoordinate().setText(splits[3].replace(")", "").replace(",", ""));
+					dlg.getCircleRadius().setText(splits[6]);
 
-		            model.clear();
-		            for (Circle circle : circleList) {
-		                model.addElement(circle);
-		            }
-		        }
+					dlg.setVisible(true);
+					if (dlg.isOk() == true) {
+						model.removeElementAt(lstCircles.getFirstVisibleIndex());
+					}
+				} catch (Exception exc) {
+					if (lstCircles.isSelectionEmpty()) {
+						JOptionPane.showMessageDialog(null, "No circles in the list", "Error",
+								JOptionPane.WARNING_MESSAGE);
+					}
+				}
 			}
 		});
-		panel.add(btnSortCircles);
+		panel.add(btnRemoveCircle);
 	}
+
 }
-
-
